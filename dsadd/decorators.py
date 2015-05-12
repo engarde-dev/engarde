@@ -59,6 +59,26 @@ def monotonic(func):
         return result
     return wrapper
 
+def within_set(items):
+    """
+    Check that DataFrame values are within set.
+
+    @within_set({'A': {1, 3}})
+    def f(df):
+        return df
+    """
+    def decorate(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            result = func(*args, **kwargs)
+            for k, v in items.items():
+                if not result[k].isin(v).all():
+                    raise ValueError("Not in Set!")
+            return result
+        return wrapper
+    return decorate
+
+
 def _is_monotonic(df, increasing=True, decreasing=True, strictly=False):
     from operator import gt, lt, ge, le
     change = df.diff().iloc[1:]

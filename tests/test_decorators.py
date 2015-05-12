@@ -52,3 +52,18 @@ class TestDecorators(unittest.TestCase):
         df = pd.DataFrame({'A': [1, 3, 1]})
         with self.assertRaises(ValueError):
             f(df)
+
+    def test_within_set(self):
+        df = pd.DataFrame({'A': [1, 2], 'B': ['a', 'b']})
+
+        @d.within_set({'A': [1, 2, 3], 'B': ['a', 'b']})
+        def f(x):
+            return x
+        f(df)
+
+        @d.within_set({'A': [1]})
+        def f(x):
+            return x
+        with self.assertRaises(ValueError):
+            f(df)
+
