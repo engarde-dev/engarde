@@ -42,6 +42,14 @@ def make_design_matrix('data.csv'):
     return out
 ```
 
+Should also go well with the new `.pipe` method
+
+
+```python
+pd.concat([df1, df2]).pipe(unique_index).cumsum()
+```
+
+
 TODO: Error type. I'm thinking have specific errors (e.g. `MissingDataError`), all of which
 subclass `ValueError`.
 
