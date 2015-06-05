@@ -1,5 +1,5 @@
-Data Scientists Against Dirt Data (DSAAD)
-=========================================
+Data Scientists Against Dirty Data (DSADD)
+==========================================
 
 A python package for defensive data analysis.
 
@@ -23,7 +23,7 @@ Examples
 Primarily used as decorators
 
 ```python
-from dsaad import no_missing
+from dsadd import no_missing
 
 @no_missing
 def f(df):
@@ -33,7 +33,7 @@ def f(df):
 or
 
 ```python
-from dsaad import known_shape, unique_index
+from dsadd import known_shape, unique_index
 
 @known_shape(input=(1293, 10), output=(1290, 10))
 @unique_index
