@@ -67,9 +67,6 @@ class TestDecorators(unittest.TestCase):
         with self.assertRaises(ValueError):
             f(df)
 
-    def test_monotonic_increasing(self):
-        pass
-
     def test_within_set(self):
         df = pd.DataFrame({'A': [1, 2], 'B': ['a', 'b']})
 

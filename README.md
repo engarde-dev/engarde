@@ -59,14 +59,12 @@ Single-table vs. Two-table
 functions should take a DataFrame and return a DataFrame
 Preference for checking input or output? Toggleable?
 
-Pronunciation
-=============
 
-I've always wanted to start a pronunciation war (it's "gif" with a hard "g" by the way).
+TODO:
+====
 
 
-Implement
-
+- better NaN handling (e.g. is_monotonic)
 - no_missing (table)
 - known_shape (table)
 - unique_index (index)
