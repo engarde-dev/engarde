@@ -30,7 +30,7 @@ def make_design_matrix('data.csv'):
     return out
 ```
 
-Second, interactively (probably with the ``[pipe](http://pandas-docs.github.io/pandas-docs-travis/basics.html#tablewise-function-application)`` method).
+Second, interactively (probably with the [``pipe``](http://pandas-docs.github.io/pandas-docs-travis/basics.html#tablewise-function-application) method).
 
 ```python
 >>> import dsadd.checks as dc
