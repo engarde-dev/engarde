@@ -10,6 +10,13 @@ Dependencies
 
 Supports python 2.7+ and 3.4+
 
+Why?
+====
+
+Data are messy. You want to assert that certain invariants about your data
+across operations or updates to the raw data. This is a lightweight way
+of placing some additional structure on semi-structured data sources like CSVs.
+
 Examples
 ========
 
