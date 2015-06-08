@@ -10,71 +10,53 @@ Dependencies
 
 Supports python 2.7+ and 3.4+
 
-Overall Design
-==============
-
-Functions take a DataFrame (and optionally arguments) and return a DataFrame.
-
-Decorators should take input / output flags, columns.
-
 Examples
 ========
 
-Primarily used as decorators
+There are two main ways of using the library.
+First, as decorators:
 
 ```python
-from dsadd import no_missing
+from dsadd.decorators import none_missing, unique_index, is_shape
 
 @no_missing
-def f(df):
-    return df
-```
+def f(df1, df2):
+    return df1.add(df2)
 
-or
-
-```python
-from dsadd import known_shape, unique_index
-
-@known_shape(input=(1293, 10), output=(1290, 10))
+@is_shape_shape(input=(1293, 10), output=(1290, 10))
 @unique_index
 def make_design_matrix('data.csv'):
     out = ...
     return out
 ```
 
-Should also go well with the new `.pipe` method
-
+Second, interactively (probably with the ``[pipe](http://pandas-docs.github.io/pandas-docs-travis/basics.html#tablewise-function-application)`` method).
 
 ```python
-pd.concat([df1, df2]).pipe(unique_index).cumsum()
+>>> import dsadd.checks as dc
+>>> (df1.reindex_like(df2))
+...     .pipe(dc.unique_index)
+...     .cumsum()
+...     .pipe(dc.within_range(0, 100))
+... )
 ```
 
+Overall Design
+==============
 
-TODO: Error type. I'm thinking have specific errors (e.g. `MissingDataError`), all of which
-subclass `ValueError`.
+Functions take a DataFrame (and optionally arguments) and return a DataFrame.
+If used as a decorator, the *result* for the decorated function is checked.
+Any failed check raises with an `AssertionError`.
 
-Single-table vs. Two-table
-==========================
-
-functions should take a DataFrame and return a DataFrame
-Preference for checking input or output? Toggleable?
 
 
 TODO:
 ====
 
+- better NaN ignoring (e.g. is_monotonic)
+- better subsetting / column-specific things
+- better error messages
 
-- better NaN handling (e.g. is_monotonic)
-- no_missing (table)
-- known_shape (table)
-- unique_index (index)
-- non_negative (columns)
-- monotonic (columns)
-- monotonic_increasing
-- monotonic_decreasing
-- withn_range ([columns] -> [set])
-- within_set ([columns -> [set])
-- within_n_std
 
 See Also
 ========
