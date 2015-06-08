@@ -1,54 +1,49 @@
 # -*- coding: utf-8 -*-
 from __future__ import (unicode_literals, absolute_import, division)
 
-import inspect
 from functools import wraps
-from itertools import zip_longest
 
-import numpy as np
-import pandas.core.common as com
+import dsadd.checks as ck
 
-
-import dsadd.checks as checks
-
-def none_missing(columns=None):
+def none_missing():
     """Asserts that no missing values (NaN) are found"""
     def decorate(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
             result = func(*args, **kwargs)
-            none_missing(df)
+            ck.none_missing(result)
             return result
         return wrapper
     return decorate
 
 
-def known_shape(shape):
-
+def is_shape(shape):
     def decorate(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
             result = func(*args, **kwargs)
-            checks.known_shape(result, shape)
+            ck.is_shape(result, shape)
+            return result
         return wrapper
     return decorate
 
 
-def unique_index(func):
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        result = func(*args, **kwargs)
-        checks.unique_index(result)
-        return result
-    return wrapper
-
+def unique_index():
+    def decorate(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            result = func(*args, **kwargs)
+            ck.unique_index(result)
+            return result
+        return wrapper
+    return decorate
 
 def is_monotonic(increasing=None, strict=False):
     def decorate(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
             result = func(*args, **kwargs)
-            checks.is_monotonic(result, increasing=increasing, strict=strict)
+            ck.is_monotonic(result, increasing=increasing, strict=strict)
             return result
         return wrapper
     return decorate
@@ -65,7 +60,7 @@ def within_set(items):
         @wraps(func)
         def wrapper(*args, **kwargs):
             result = func(*args, **kwargs)
-            within_set(df, items)
+            ck.within_set(result, items)
             return result
         return wrapper
     return decorate
@@ -91,7 +86,7 @@ def within_range(items):
         @wraps(func)
         def wrapper(*args, **kwargs):
             result = func(*args, **kwargs)
-            within_range(result, items)
+            ck.within_range(result, items)
             return result
         return wrapper
     return decorate
@@ -106,7 +101,7 @@ def within_n_std(n=3):
         @wraps(func)
         def wrapper(*args, **kwargs):
             result = func(*args, **kwargs)
-            within_n_std(result, n=n)
+            ck.within_n_std(result, n=n)
             return result
         return wrapper
     return decorate

@@ -35,18 +35,23 @@ def is_monotonic(df, increasing=None, strict=False):
 
     dispatch = {(True, False): operator.ge,
                 (True, True): operator.gt,
-                (False, False): operator.ge,
-                (False, True): operator.gt,
-                (None, False): lambda x: (operator.ge(x) |
-                                          operator.le(x)),
-                (None, True): lambda x: (operator.gt(x) |
-                                         operator.lt(x))}
+                (False, False): operator.le,
+                (False, True): operator.lt,
+                (None, False): (lambda x, y: operator.ge(x, y),
+                                lambda x, y: operator.le(x, y)),
+                (None, True): (lambda x, y: operator.gt(x, y),
+                               lambda x, y: operator.lt(x, y))}
 
-    func = dispatch[(increasing, strict)]
-    assert func(delta, 0).all().all()
+    # tough to do generically
+    if increasing is not None:
+        func = dispatch[(increasing, strict)]
+        assert func(delta, 0).all().all()
+    else:
+        f1, f2 = dispatch[(increasing, strict)]
+        assert np.all(f1(delta, 0).all() | f2(delta, 0).all())
     return df
 
-def known_shape(df, shape):
+def is_shape(df, shape):
     """
     Asserts that the DataFrame is of a known shape.
 

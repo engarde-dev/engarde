@@ -33,7 +33,7 @@ setup(
     ],
 
     keywords='data analysis',
-    install_requires=['numpy', 'pandas'],
+    # install_requires=['numpy', 'pandas'],
 
     # List additional groups of dependencies here (e.g. development
     # dependencies). You can install these using the following syntax,
