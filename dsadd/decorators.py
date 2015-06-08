@@ -106,3 +106,5 @@ def within_n_std(n=3):
         return wrapper
     return decorate
 
+__all__ = [is_monotonic, is_shape, none_missing, unique_index, within_n_std,
+           within_range, within_set]

@@ -7,7 +7,7 @@ here = path.abspath(path.dirname(__file__))
 setup(
     name='dsadd',
 
-    version='0.0.1',
+    version='0.0.2',
 
     description='A python package for defensive data analysis.',
     long_description='A python package for defensive data analysis.',
@@ -32,6 +32,7 @@ setup(
     ],
 
     keywords='data analysis',
+    packages=find_packages(exclude=['tests']),
     # install_requires=['numpy', 'pandas'],
 
     # List additional groups of dependencies here (e.g. development

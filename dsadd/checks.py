@@ -110,4 +110,5 @@ def within_n_std(df, n=3):
         raise AssertionError
     return df
 
-
+__all__ = [is_monotonic, is_shape, none_missing, unique_index, within_n_std,
+           within_range, within_set]
