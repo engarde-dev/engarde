@@ -30,7 +30,7 @@ from dsadd.decorators import none_missing, unique_index, is_shape
 def f(df1, df2):
     return df1.add(df2)
 
-@is_shape(input=(1293, 10), output=(1290, 10))
+@is_shape((1290, 10))
 @unique_index
 def make_design_matrix('data.csv'):
     out = ...
