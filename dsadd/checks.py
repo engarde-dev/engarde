@@ -8,18 +8,19 @@ Each function in here should
 - Makes its assert
 - Return the original DataFrame
 """
-import operator
-
 import numpy as np
+import pandas as pd
 
-def none_missing(df):
+def none_missing(df, columns=None):
     """
     Asserts that there are no missing values (NaNs) in the DataFrame.
     """
-    assert not df.isnull().any().any()
+    if columns is None:
+        columns = df.columns
+    assert not df[columns].isnull().any().any()
     return df
 
-def is_monotonic(df, increasing=None, strict=False):
+def is_monotonic(df, items=None, increasing=None, strict=False):
     """
     Asserts that the DataFrame is monotonic
 
@@ -27,28 +28,33 @@ def is_monotonic(df, increasing=None, strict=False):
     ==========
 
     df : Series or DataFrame
+    items : dict
+        mapping columns to conditions (increasing, strict)
     increasing : None or bool
         None is either increasing or decreasing.
     strict: whether the comparison should be strict
     """
-    delta = df.diff().iloc[1:]
+    if items is None:
+        items = {k: (increasing, strict) for k in df}
 
-    dispatch = {(True, False): operator.ge,
-                (True, True): operator.gt,
-                (False, False): operator.le,
-                (False, True): operator.lt,
-                (None, False): (lambda x, y: operator.ge(x, y),
-                                lambda x, y: operator.le(x, y)),
-                (None, True): (lambda x, y: operator.gt(x, y),
-                               lambda x, y: operator.lt(x, y))}
-
-    # tough to do generically
-    if increasing is not None:
-        func = dispatch[(increasing, strict)]
-        assert func(delta, 0).all().all()
-    else:
-        f1, f2 = dispatch[(increasing, strict)]
-        assert np.all(f1(delta, 0).all() | f2(delta, 0).all())
+    for col, (increasing, strict) in items.items():
+        s = pd.Index(df[col])
+        if increasing:
+            good = getattr(s, 'is_monotonic_increasing')
+        elif increasing is None:
+            good = getattr(s, 'is_monotonic') | getattr(s, 'is_monotonic_decreasing')
+        else:
+            good = getattr(s, 'is_monotonic_decreasing')
+        if strict:
+            if increasing:
+                good = good & (s.to_series().diff().dropna() > 0).all()
+            elif increasing is None:
+                good = good & ((s.to_series().diff().dropna() > 0).all() |
+                               (s.to_series().diff().dropna() < 0).all())
+            else:
+                good = good & (s.to_series().diff().dropna() < 0).all()
+        if not good:
+            raise AssertionError
     return df
 
 def is_shape(df, shape):
