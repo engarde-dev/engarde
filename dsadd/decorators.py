@@ -38,12 +38,13 @@ def unique_index():
         return wrapper
     return decorate
 
-def is_monotonic(increasing=None, strict=False):
+def is_monotonic(items=None, increasing=None, strict=False):
     def decorate(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
             result = func(*args, **kwargs)
-            ck.is_monotonic(result, increasing=increasing, strict=strict)
+            ck.is_monotonic(result, items=items, increasing=increasing,
+                            strict=strict)
             return result
         return wrapper
     return decorate

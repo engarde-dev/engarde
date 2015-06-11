@@ -129,6 +129,12 @@ def test_monotonic_either_stict():
     with pytest.raises(AssertionError):
         dc.is_monotonic(strict=True)(_add_one)(df)
 
+def test_monotonic_items():
+    df = pd.DataFrame({'A': [1, 2, 3], 'B': [3, 2, 3]})
+    tm.assert_frame_equal(df, ck.is_monotonic(df, items={'A': (True, True)}))
+    tm.assert_frame_equal(dc.is_monotonic(items={'A': (True, True)}, strict=True)(_add_one)(
+        df), df + 1)
+
 def test_is_shape():
     shape = 10, 2
     df = pd.DataFrame(np.random.randn(*shape))
