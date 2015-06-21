@@ -110,7 +110,7 @@ def within_range(df, items=None):
     return df
 
 def within_n_std(df, n=3):
-    means = df.means()
+    means = df.mean()
     stds = df.std()
     if not (np.abs(df - means) < n * stds).all().all():
         raise AssertionError

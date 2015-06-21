@@ -186,13 +186,14 @@ def test_within_range():
     with pytest.raises(AssertionError):
         dc.within_range(items)(_noop)(df)
 
-def within_n_std(df):
+def test_within_n_std():
     df = pd.DataFrame({'A': np.arange(10)})
     tm.assert_frame_equal(df, ck.within_n_std(df))
     tm.assert_frame_equal(df, dc.within_n_std()(_noop)(df))
 
-    with pytest.raisers(AssertionError):
-        ck.within_n_std(df, 2)
-    with pytest.raisers(AssertionError):
-        dc.within_n_std(2)(_noop)(df)
+    with pytest.raises(AssertionError):
+        ck.within_n_std(df, .5)
+    with pytest.raises(AssertionError):
+        dc.within_n_std(.5)(_noop)(df)
+
 
