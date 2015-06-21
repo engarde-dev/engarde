@@ -16,8 +16,8 @@ Why?
 Data are messy.
 But, our analysis often depends on certain assumptions about our data
 that *should* be invariant across updates to your dataset.
-`engarde` is a lightweight way to make your assumptions explicit and to
-actually check them.
+`engarde` is a lightweight way to explicitly state your assumptions
+and check that they're *actually* true.
 
 This is especially important when working with flat files like CSV
 that aren't bound for a more structured destination (e.g. SQL or HDF5).
