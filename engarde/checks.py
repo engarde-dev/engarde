@@ -5,7 +5,7 @@ checks.py
 Each function in here should
 
 - Take a DataFrame as its first argument, maybe optional arguments
-- Makes its assert
+- Makes its assert on the result
 - Return the original DataFrame
 """
 import numpy as np
