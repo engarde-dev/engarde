@@ -116,5 +116,22 @@ def within_n_std(df, n=3):
         raise AssertionError
     return df
 
+def has_dtypes(df, items):
+    """
+    Assert that a DataFrame has `dtypes`
+
+    Parameters
+    ==========
+    df: DataFrame
+    items: dict
+        mapping of columns to dtype.
+    """
+    dtypes = df.dtypes
+    for k, v in items.items():
+        if not dtypes[k] == v:
+            raise AssertionError
+    return df
+
 __all__ = [is_monotonic, is_shape, none_missing, unique_index, within_n_std,
-           within_range, within_set]
+           within_range, within_set, has_dtypes]
+

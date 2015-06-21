@@ -107,5 +107,18 @@ def within_n_std(n=3):
         return wrapper
     return decorate
 
+def has_dtypes(items):
+    """
+    Tests that the dtypes are as specified in items.
+    """
+    def decorate(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            result = func(*args, **kwargs)
+            ck.has_dtypes(result, items)
+            return result
+        return wrapper
+    return decorate
+
 __all__ = [is_monotonic, is_shape, none_missing, unique_index, within_n_std,
-           within_range, within_set]
+           within_range, within_set, has_dtypes]

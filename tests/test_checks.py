@@ -196,4 +196,18 @@ def test_within_n_std():
     with pytest.raises(AssertionError):
         dc.within_n_std(.5)(_noop)(df)
 
+def test_has_dtypes():
+    df = pd.DataFrame({'A': np.random.randint(0, 10, 10),
+                       'B': np.random.randn(10),
+                       'C': list('abcdefghij'),
+                       'D': pd.Categorical(np.random.choice(['a', 'b'], 10))})
+    dtypes = {'A': int, 'B': 'float', 'C': object, 'D': 'category'}
+    tm.assert_frame_equal(df, ck.has_dtypes(df, dtypes))
+    tm.assert_frame_equal(df, dc.has_dtypes(items=dtypes)(_noop)(df))
+
+    with pytest.raises(AssertionError):
+        ck.has_dtypes(df, {'A': float})
+
+    with pytest.raises(AssertionError):
+        dc.has_dtypes(items={'A': bool})(_noop)(df)
 
