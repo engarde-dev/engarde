@@ -1,7 +1,7 @@
-Data Scientists Against Dirty Data (DSADD)
-==========================================
+Engarde
+=======
 
-A python package for defensive data analysis. (Name to be determined.)
+A python package for defensive data analysis.
 
 Dependencies
 ============
@@ -13,18 +13,29 @@ Supports python 2.7+ and 3.4+
 Why?
 ====
 
-Data are messy. You want to assert that certain invariants about your data
-across operations or updates to the raw data. This is a lightweight way
-of placing some additional structure on semi-structured data sources like CSVs.
+Data are messy.
+But, our analysis often depends on certain assumptions about our data
+that *should* be invariant across updates to your dataset.
+`engarde` is a lightweight way to make your assumptions explicit and to
+actually check them.
+
+This is especially important when working with flat files like CSV
+that aren't bound for a more structured destination (e.g. SQL or HDF5).
 
 Examples
 ========
 
-There are two main ways of using the library.
-First, as decorators:
+There are two main ways of using the library, which correspond to the
+two main ways I use pandas: writing small scripts or interactively at
+the interpreter.
+
+First, as decorators, which are most useful in `.py` scripts
+The basic idea is to  write each step of your ETL process as a function
+that takes and returns a DataFrame. These functions can be decorated with
+the invariants that should be true at that step in the process.
 
 ```python
-from dsadd.decorators import none_missing, unique_index, is_shape
+from engarde.decorators import none_missing, unique_index, is_shape
 
 @none_missing
 def f(df1, df2):
@@ -37,11 +48,12 @@ def make_design_matrix('data.csv'):
     return out
 ```
 
-Second, interactively (probably with the [``pipe``](http://pandas-docs.github.io/pandas-docs-travis/basics.html#tablewise-function-application) method,
-which requires pandas>=0.16.2).
+Second, interactively.
+The cleanest way to integrate this is through the [``pipe``](http://pandas-docs.github.io/pandas-docs-travis/basics.html#tablewise-function-application) method,
+introduced in pandas 0.16.2 (June 2015).
 
 ```python
->>> import dsadd.checks as dc
+>>> import engarde.checks as dc
 >>> (df1.reindex_like(df2))
 ...     .pipe(dc.unique_index)
 ...     .cumsum()
@@ -54,8 +66,7 @@ Overall Design
 
 Functions take a DataFrame (and optionally arguments) and return a DataFrame.
 If used as a decorator, the *result* for the decorated function is checked.
-Any failed check raises with an `AssertionError`.
-
+Any failed check raises with an `AssertionError` (for now).
 
 
 TODO:
@@ -63,10 +74,11 @@ TODO:
 
 - better NaN ignoring (e.g. is_monotonic)
 - better subsetting / column-specific things
-- better error messages
+- better error messages (a la pytest? How much can we use their machinery?)
 
 
 See Also
 ========
 
 [assertr](https://github.com/tonyfischetti/assertr)
+

@@ -3,7 +3,7 @@ from __future__ import (unicode_literals, absolute_import, division)
 
 from functools import wraps
 
-import dsadd.checks as ck
+import engarde.checks as ck
 
 def none_missing():
     """Asserts that no missing values (NaN) are found"""

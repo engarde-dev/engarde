@@ -4,8 +4,8 @@ import numpy as np
 import pandas as pd
 import pandas.util.testing as tm
 
-import dsadd.checks as ck
-import dsadd.decorators as dc
+import engarde.checks as ck
+import engarde.decorators as dc
 
 
 def _add_one(df):

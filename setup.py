@@ -5,14 +5,14 @@ from os import path
 here = path.abspath(path.dirname(__file__))
 
 setup(
-    name='dsadd',
+    name='engarde',
 
     version='0.0.2',
 
     description='A python package for defensive data analysis.',
     long_description='A python package for defensive data analysis.',
 
-    url='https://github.com/tomaugspurger/dsadd',
+    url='https://github.com/tomaugspurger/engarde',
 
     # Author details
     author='Tom Augspurger',
