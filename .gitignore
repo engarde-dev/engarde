@@ -65,3 +65,5 @@ target/
 # other
 data/
 wheelhouse/
+*.zip
+*.csv
