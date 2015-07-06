@@ -11,6 +11,35 @@ Each function in here should
 import numpy as np
 import pandas as pd
 
+def verify(df, check, **kwargs):
+    """
+    Generic verify. Assert that check(df, **kwargs) is True
+
+    Parameters
+    ==========
+    df : DataFrame
+    check : function
+        Should take DataFrame and **kwargs. Returns bool
+
+    Returns
+    =======
+    df : DataFrame
+        same as the input.
+    """
+    result = check(df, **kwargs)
+    assert result
+    return df
+
+def verify_all(df, check, **kwargs):
+    result = check(df, **kwargs)
+    assert np.all(result)
+    return df
+
+def verify_any(df, check, **kwargs):
+    result = check(df, **kwargs)
+    assert np.any(result)
+    return df
+
 def none_missing(df, columns=None):
     """
     Asserts that there are no missing values (NaNs) in the DataFrame.
