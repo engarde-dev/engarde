@@ -3,6 +3,8 @@ from __future__ import (unicode_literals, absolute_import, division)
 
 from functools import wraps
 
+import numpy as np
+
 import engarde.checks as ck
 
 def none_missing():
@@ -120,5 +122,46 @@ def has_dtypes(items):
         return wrapper
     return decorate
 
+def verify(func, *args, **kwargs):
+    """
+    Assert that `func(df, *args, **kwargs)` is true.
+    """
+    def decorate(operation_func):
+        @wraps(operation_func)
+        def wrapper(*operation_args, **operation_kwargs):
+            result = operation_func(*operation_args, **operation_kwargs)
+            assert func(result, *args, **kwargs)
+            return result
+        return wrapper
+    return decorate
+
+def verify_all(func, *args, **kwargs):
+    """
+    Assert that all of `func(*args, **kwargs)` are true.
+    """
+    def decorate(operation_func):
+        @wraps(operation_func)
+        def wrapper(*operation_args, **operation_kwargs):
+            result = operation_func(*operation_args, **operation_kwargs)
+            assert np.all(func(result, *args, **kwargs))
+            return result
+        return wrapper
+    return decorate
+
+def verify_any(func, *args, **kwargs):
+    """
+    Assert that any of `func(*args, **kwargs)` are true.
+    """
+    def decorate(operation_func):
+        @wraps(operation_func)
+        def wrapper(*operation_args, **operation_kwargs):
+            result = operation_func(*operation_args, **operation_kwargs)
+            assert np.any(func(result, *args, **kwargs))
+            return result
+        return wrapper
+    return decorate
+
 __all__ = [is_monotonic, is_shape, none_missing, unique_index, within_n_std,
-           within_range, within_set, has_dtypes]
+           within_range, within_set, has_dtypes, verify, verify_all,
+           verify_any]
+

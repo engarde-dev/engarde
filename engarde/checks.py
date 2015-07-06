@@ -11,7 +11,8 @@ Each function in here should
 import numpy as np
 import pandas as pd
 
-from engarde.utils import bad_locations
+from engarde import generic
+from engarde.generic import verify, verify_all, verify_any
 
 
 def none_missing(df, columns=None):
@@ -24,7 +25,7 @@ def none_missing(df, columns=None):
         assert not df[columns].isnull().any().any()
     except AssertionError as e:
         missing = df[columns].isnull()
-        msg = bad_locations(missing)
+        msg = generic.bad_locations(missing)
         e.args = msg
         raise
     return df
@@ -135,7 +136,7 @@ def within_n_std(df, n=3):
     stds = df.std()
     inliers = (np.abs(df - means) < n * stds)
     if not np.all(inliers):
-        msg = bad_locations(~inliers)
+        msg = generic.bad_locations(~inliers)
         raise AssertionError(msg)
     return df
 
@@ -156,5 +157,6 @@ def has_dtypes(df, items):
     return df
 
 __all__ = [is_monotonic, is_shape, none_missing, unique_index, within_n_std,
-           within_range, within_set, has_dtypes]
+           within_range, within_set, has_dtypes,
+           verify, verify_all, verify_any]
 
