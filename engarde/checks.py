@@ -11,13 +11,22 @@ Each function in here should
 import numpy as np
 import pandas as pd
 
+from engarde.utils import bad_locations
+
+
 def none_missing(df, columns=None):
     """
     Asserts that there are no missing values (NaNs) in the DataFrame.
     """
     if columns is None:
         columns = df.columns
-    assert not df[columns].isnull().any().any()
+    try:
+        assert not df[columns].isnull().any().any()
+    except AssertionError as e:
+        missing = df[columns].isnull()
+        msg = bad_locations(missing)
+        e.args = msg
+        raise
     return df
 
 def is_monotonic(df, items=None, increasing=None, strict=False):
@@ -67,12 +76,22 @@ def is_shape(df, shape):
     df: DataFrame
     shape : tuple (n_rows, n_columns)
     """
-    assert df.shape == shape
+    try:
+        assert df.shape == shape
+    except AssertionError as e:
+        msg = ("Expected shape: {}\n"
+               "\t\tActual shape:   {}".format(shape, df.shape))
+        e.args = msg
+        raise
     return df
 
 def unique_index(df):
     """Assert that the index is unique"""
-    assert df.index.is_unique
+    try:
+        assert df.index.is_unique
+    except AssertionError as e:
+        e.args = df.index.get_duplicates()
+        raise
     return df
 
 
@@ -90,7 +109,8 @@ def within_set(df, items=None):
     """
     for k, v in items.items():
         if not df[k].isin(v).all():
-            raise AssertionError
+            bad = df.loc[~df[k].isin(v), k]
+            raise AssertionError('Not in set', bad)
     return df
 
 def within_range(df, items=None):
@@ -106,14 +126,17 @@ def within_range(df, items=None):
     """
     for k, (lower, upper) in items.items():
         if (lower > df[k]).any() or (upper < df[k]).any():
-            raise AssertionError
+            bad = (lower > df[k]) | (upper < df[k])
+            raise AssertionError("Outside range", bad)
     return df
 
 def within_n_std(df, n=3):
     means = df.mean()
     stds = df.std()
-    if not (np.abs(df - means) < n * stds).all().all():
-        raise AssertionError
+    inliers = (np.abs(df - means) < n * stds)
+    if not np.all(inliers):
+        msg = bad_locations(~inliers)
+        raise AssertionError(msg)
     return df
 
 def has_dtypes(df, items):
@@ -129,7 +152,7 @@ def has_dtypes(df, items):
     dtypes = df.dtypes
     for k, v in items.items():
         if not dtypes[k] == v:
-            raise AssertionError
+            raise AssertionError("{} has the wrong dtype ({})".format(k, v))
     return df
 
 __all__ = [is_monotonic, is_shape, none_missing, unique_index, within_n_std,
