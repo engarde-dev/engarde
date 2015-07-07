@@ -5,6 +5,37 @@ from functools import wraps
 
 import engarde.checks as ck
 
+def decoratize(check, *args, **kwargs):
+    """
+    Helper method to make a check into a decorator.
+
+    Parameters
+    ==========
+
+    check : function. Should take a DataFrame
+    args : positional arguments to 'check'
+    kwargs : keyword arguments to 'check'
+
+    Returns
+    =======
+    decorated : function
+        Takes a DataFrame, *args, **kwargs
+
+    Notes
+    =====
+    Not used in the library since it kills the
+    function signature.
+
+    """
+    def decorate(func, *args, **kwargs):
+        @wraps(func)
+        def wrapper(*func_args, **func_kwargs):
+            result = func(*func_args, **func_kwargs)
+            check(result, *args, **kwargs)
+            return result
+        return wrapper
+    return decorate
+
 def none_missing():
     """Asserts that no missing values (NaN) are found"""
     def decorate(func):
