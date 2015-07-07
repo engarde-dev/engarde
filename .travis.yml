@@ -23,5 +23,5 @@ install:
 
 # Run test
 script:
-  - nosetests engarde
+  - nosetests tests
 
