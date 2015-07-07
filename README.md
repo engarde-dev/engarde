@@ -1,6 +1,8 @@
 Engarde
 =======
 
+[![Build Status](https://travis-ci.org/TomAugspurger/engarde.svg?branch=ci)](https://travis-ci.org/TomAugspurger/engarde)
+
 A python package for defensive data analysis.
 
 Dependencies
