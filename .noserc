@@ -1,0 +1,5 @@
+[nosetests]
+with-coverage=1
+cover-package=engarde
+cover-html=1
+

@@ -44,6 +44,7 @@ nosetests.xml
 coverage.xml
 *,cover
 .noseids
+cover/*
 
 # Translations
 *.mo
@@ -67,3 +68,4 @@ data/
 wheelhouse/
 *.zip
 *.csv
+
