@@ -82,5 +82,5 @@ TODO:
 See Also
 ========
 
-[assertr](https://github.com/tonyfischetti/assertr)
-
+- [assertr](https://github.com/tonyfischetti/assertr)
+- [Validada](https://github.com/jnmclarty/validada)
