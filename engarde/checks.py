@@ -18,6 +18,17 @@ from engarde.generic import verify, verify_all, verify_any
 def none_missing(df, columns=None):
     """
     Asserts that there are no missing values (NaNs) in the DataFrame.
+
+    Parameters
+    ----------
+    df : DataFrame
+    columns : list
+      list of columns to restrict the check to
+
+    Returns
+    -------
+    df : DataFrame
+      same as the original
     """
     if columns is None:
         columns = df.columns
@@ -32,7 +43,7 @@ def none_missing(df, columns=None):
 
 def is_monotonic(df, items=None, increasing=None, strict=False):
     """
-    Asserts that the DataFrame is monotonic
+    Asserts that the DataFrame is monotonic.
 
     Parameters
     ==========
@@ -42,7 +53,11 @@ def is_monotonic(df, items=None, increasing=None, strict=False):
         mapping columns to conditions (increasing, strict)
     increasing : None or bool
         None is either increasing or decreasing.
-    strict: whether the comparison should be strict
+    strict : whether the comparison should be strict
+
+    Returns
+    =======
+    df : DataFrame
     """
     if items is None:
         items = {k: (increasing, strict) for k in df}
@@ -74,8 +89,13 @@ def is_shape(df, shape):
     Parameters
     ==========
 
-    df: DataFrame
-    shape : tuple (n_rows, n_columns)
+    df : DataFrame
+    shape : tuple
+      (n_rows, n_columns)
+
+    Returns
+    =======
+    df : DataFrame
     """
     try:
         assert df.shape == shape
@@ -87,7 +107,17 @@ def is_shape(df, shape):
     return df
 
 def unique_index(df):
-    """Assert that the index is unique"""
+    """
+    Assert that the index is unique
+
+    Parameters
+    ==========
+    df : DataFrame
+
+    Returns
+    =======
+    df : DataFrame
+    """
     try:
         assert df.index.is_unique
     except AssertionError as e:
@@ -102,11 +132,14 @@ def within_set(df, items=None):
 
     Parameters
     ==========
-
     df : DataFrame
     items : dict
-        mapping of columns (k) to array-like of values (v) that
-        ``df[k]`` is expected to be a subset of
+      mapping of columns (k) to array-like of values (v) that
+      ``df[k]`` is expected to be a subset of
+
+    Returns
+    =======
+    df : DataFrame
     """
     for k, v in items.items():
         if not df[k].isin(v).all():
@@ -122,8 +155,12 @@ def within_range(df, items=None):
     ==========
     df : DataFame
     items : dict
-        mapping of columns (k) to a (low, high) tuple (v)
-        that ``df[k]`` is expected to be between.
+      mapping of columns (k) to a (low, high) tuple (v)
+      that ``df[k]`` is expected to be between.
+
+    Returns
+    =======
+    df : DataFrame
     """
     for k, (lower, upper) in items.items():
         if (lower > df[k]).any() or (upper < df[k]).any():
@@ -132,6 +169,20 @@ def within_range(df, items=None):
     return df
 
 def within_n_std(df, n=3):
+    """
+    Assert that every value is within ``n`` standard
+    deviations of its column's mean.
+
+    Parameters
+    ==========
+    df : DataFame
+    n : int
+      number of standard devations from the mean
+
+    Returns
+    =======
+    df : DatFrame
+    """
     means = df.mean()
     stds = df.std()
     inliers = (np.abs(df - means) < n * stds)
@@ -142,13 +193,17 @@ def within_n_std(df, n=3):
 
 def has_dtypes(df, items):
     """
-    Assert that a DataFrame has `dtypes`
+    Assert that a DataFrame has ``dtypes``
 
     Parameters
     ==========
     df: DataFrame
     items: dict
-        mapping of columns to dtype.
+      mapping of columns to dtype.
+
+    Returns
+    =======
+    df : DataFrame
     """
     dtypes = df.dtypes
     for k, v in items.items():
@@ -156,7 +211,7 @@ def has_dtypes(df, items):
             raise AssertionError("{} has the wrong dtype ({})".format(k, v))
     return df
 
-__all__ = [is_monotonic, is_shape, none_missing, unique_index, within_n_std,
-           within_range, within_set, has_dtypes,
-           verify, verify_all, verify_any]
+__all__ = ['is_monotonic', 'is_shape', 'none_missing', 'unique_index', 'within_n_std',
+           'within_range', 'within_set', 'has_dtypes',
+           'verify', 'verify_all', 'verify_any']
 
