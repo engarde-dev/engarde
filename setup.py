@@ -1,13 +1,14 @@
 from setuptools import setup, find_packages
 # To use a consistent encoding
 from os import path
+import versioneer
 
 here = path.abspath(path.dirname(__file__))
 
 setup(
     name='engarde',
-
-    version='0.0.2',
+    version=versioneer.get_version(),
+    cmdclass=versioneer.get_cmdclass(),
 
     description='A python package for defensive data analysis.',
     long_description='A python package for defensive data analysis.',
