@@ -36,7 +36,7 @@ def get_config():
     cfg = VersioneerConfig()
     cfg.VCS = "git"
     cfg.style = "pep440"
-    cfg.tag_prefix = "None"
+    cfg.tag_prefix = "''"
     cfg.parentdir_prefix = "engarde-"
     cfg.versionfile_source = "engarde/_version.py"
     cfg.verbose = False
