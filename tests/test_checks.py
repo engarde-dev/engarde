@@ -138,10 +138,15 @@ def test_monotonic_items():
 
 def test_is_shape():
     shape = 10, 2
+    ig_0 = -1, 2
+    ig_1 = 10, -1
+    shapes = [shape, ig_0, ig_1]
     df = pd.DataFrame(np.random.randn(*shape))
-    tm.assert_frame_equal(df, ck.is_shape(df, shape))
-    result = dc.is_shape(shape=shape)(_add_n)(df)
-    tm.assert_frame_equal(result, df + 1)
+    for shp in shapes:
+        tm.assert_frame_equal(df, ck.is_shape(df, shp))
+    for shp in shapes:
+        result = dc.is_shape(shape=shp)(_add_n)(df)
+        tm.assert_frame_equal(result, df + 1)
 
     with pytest.raises(AssertionError):
         ck.is_shape(df, (9, 2))
