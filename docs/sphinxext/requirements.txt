@@ -5,3 +5,4 @@ pandas
 mistune
 jsonschema
 ipython
+numpydoc
