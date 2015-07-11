@@ -1,7 +1,7 @@
 numpy
-scipy
 pandas
 
 mistune
 jsonschema
 ipython
+numpydoc
