@@ -140,7 +140,9 @@ def test_is_shape():
     shape = 10, 2
     ig_0 = -1, 2
     ig_1 = 10, -1
-    shapes = [shape, ig_0, ig_1]
+    ig_2 = None, 2
+    ig_3 = 10, None
+    shapes = [shape, ig_0, ig_1, ig_2, ig_3]
     df = pd.DataFrame(np.random.randn(*shape))
     for shp in shapes:
         tm.assert_frame_equal(df, ck.is_shape(df, shp))

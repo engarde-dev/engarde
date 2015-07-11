@@ -98,7 +98,8 @@ def is_shape(df, shape):
     df : DataFrame
     """
     try:
-        check = np.all(np.equal(df.shape, shape) | np.equal(shape, [-1, -1]))
+        check = np.all(np.equal(df.shape, shape) | (np.equal(shape, [-1, -1]) |
+                                                    np.equal(shape, [None, None])))
         assert check
     except AssertionError as e:
         msg = ("Expected shape: {}\n"
