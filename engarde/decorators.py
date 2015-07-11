@@ -3,8 +3,6 @@ from __future__ import (unicode_literals, absolute_import, division)
 
 from functools import wraps
 
-import numpy as np
-
 import engarde.checks as ck
 
 def none_missing():
@@ -126,37 +124,29 @@ def verify(func, *args, **kwargs):
     """
     Assert that `func(df, *args, **kwargs)` is true.
     """
-    def decorate(operation_func):
-        @wraps(operation_func)
-        def wrapper(*operation_args, **operation_kwargs):
-            result = operation_func(*operation_args, **operation_kwargs)
-            assert func(result, *args, **kwargs)
-            return result
-        return wrapper
-    return decorate
+    return _verify(func, None, *args, **kwargs)
 
 def verify_all(func, *args, **kwargs):
     """
     Assert that all of `func(*args, **kwargs)` are true.
     """
-    def decorate(operation_func):
-        @wraps(operation_func)
-        def wrapper(*operation_args, **operation_kwargs):
-            result = operation_func(*operation_args, **operation_kwargs)
-            assert np.all(func(result, *args, **kwargs))
-            return result
-        return wrapper
-    return decorate
+    return _verify(func, 'all', *args, **kwargs)
 
 def verify_any(func, *args, **kwargs):
     """
     Assert that any of `func(*args, **kwargs)` are true.
     """
+    return _verify(func, 'any', *args, **kwargs)
+
+def _verify(func, _kind, *args, **kwargs):
+    d = {None: ck.verify, 'all': ck.verify_all, 'any': ck.verify_any}
+    vfunc = d[_kind]
+
     def decorate(operation_func):
         @wraps(operation_func)
         def wrapper(*operation_args, **operation_kwargs):
             result = operation_func(*operation_args, **operation_kwargs)
-            assert np.any(func(result, *args, **kwargs))
+            vfunc(result, func, *args, **kwargs)
             return result
         return wrapper
     return decorate
