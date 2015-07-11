@@ -1,6 +1,8 @@
 API
 ===
 
+.. _checks:
+
 checks
 ------
 
@@ -11,6 +13,7 @@ probably via the ``pipe`` method.
 .. automodule:: engarde.checks
    :members:
 
+.. _decorators:
 
 decorators
 ----------
