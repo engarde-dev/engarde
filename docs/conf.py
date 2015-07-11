@@ -34,6 +34,7 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.mathjax',
     'ipython_directive',
+    'ipython_console_highlighting',
     'numpydoc'
 ]
 

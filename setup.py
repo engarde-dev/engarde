@@ -42,7 +42,7 @@ setup(
     # $ pip install -e .[dev,test]
     extras_require={
         'dev': [''],
-        'test': ['coverage', 'pytest', 'ipython', 'traitlets', 'numpydoc', 'matplotlib'],
+        'test': ['coverage', 'pytest', 'ipython', 'traitlets', 'numpydoc'],
     },
 
 )

@@ -765,7 +765,7 @@ class IPythonDirective(Directive):
         rgxout     = config.ipython_rgxout
         promptin   = config.ipython_promptin
         promptout  = config.ipython_promptout
-        mplbackend = config.ipython_mplbackend
+        mplbackend = None
         exec_lines = config.ipython_execlines
         hold_count = config.ipython_holdcount
 
@@ -899,7 +899,7 @@ def setup(app):
     # backend in the matplotlibrc file, but this would cause issues if the
     # backend didn't work in headless environments. For this reason, 'agg'
     # is a good default backend choice.
-    app.add_config_value('ipython_mplbackend', 'agg', 'env')
+    app.add_config_value(None, 'agg', 'env')
 
     # If the user sets this config value to `None`, then EmbeddedSphinxShell's
     # __init__ method will treat it as [].
