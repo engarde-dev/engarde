@@ -53,9 +53,9 @@ def within_set(items):
     """
     Check that DataFrame values are within set.
 
-    @within_set({'A': {1, 3}})
-    def f(df):
-        return df
+    >>> @within_set({'A': {1, 3}})
+    >>> def f(df):
+            return df
     """
     def decorate(func):
         @wraps(func)
@@ -73,15 +73,10 @@ def within_range(items):
 
     Parameters
     ==========
-
     items : dict or array-like
         dict maps columss to (lower, upper)
         array-like checks the same (lower, upper) for each column
 
-    Raises
-    ======
-
-    ValueError
     """
     def decorate(func):
         @wraps(func)
@@ -151,7 +146,7 @@ def _verify(func, _kind, *args, **kwargs):
         return wrapper
     return decorate
 
-__all__ = [is_monotonic, is_shape, none_missing, unique_index, within_n_std,
-           within_range, within_set, has_dtypes, verify, verify_all,
-           verify_any]
+__all__ = ['is_monotonic', 'is_shape', 'none_missing', 'unique_index',
+           'within_range', 'within_set', 'has_dtypes', 'verify', 'verify_all',
+           'verify_any', 'within_n_std']
 

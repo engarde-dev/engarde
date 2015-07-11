@@ -14,7 +14,8 @@ import pandas as pd
 
 def verify(df, check, *args, **kwargs):
     """
-    Generic verify. Assert that check(df, **kwargs) is True
+    Generic verify. Assert that ``check(df, *args, **kwargs)`` is
+    true.
 
     Parameters
     ==========
@@ -37,6 +38,10 @@ def verify(df, check, *args, **kwargs):
     return df
 
 def verify_all(df, check, *args, **kwargs):
+    """
+    Verify that all the entries in ``check(df, *args, **kwargs)``
+    are true.
+    """
     result = check(df, *args, **kwargs)
     try:
         assert np.all(result)
@@ -47,6 +52,10 @@ def verify_all(df, check, *args, **kwargs):
     return df
 
 def verify_any(df, check, *args, **kwargs):
+    """
+    Verify that any of the entries in ``check(df, *args, **kwargs)``
+    is true
+    """
     result = check(df, *args, **kwargs)
     try:
         assert np.any(result)
@@ -67,5 +76,5 @@ def bad_locations(df):
     msg = bad.values
     return msg
 
-__all__ = [verify, verify_all, verify_any, bad_locations]
+__all__ = ['verify', 'verify_all', 'verify_any', 'bad_locations']
 
