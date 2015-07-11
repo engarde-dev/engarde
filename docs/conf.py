@@ -33,8 +33,8 @@ sys.path.insert(0, os.path.abspath('./sphinxext'))
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.mathjax',
-    'ipython_directive',
-    'ipython_console_highlighting',
+    'IPython.sphinxext.ipython_directive',
+    'IPython.sphinxext.ipython_console_highlighting',
     'numpydoc'
 ]
 
