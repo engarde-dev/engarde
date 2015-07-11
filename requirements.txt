@@ -3,4 +3,4 @@ pandas>=0.16.2
 ipython>=3.2.0
 traitlets==4.0.0
 numpydoc==0.5
-matplotlib
+matplotlib==1.4.3
