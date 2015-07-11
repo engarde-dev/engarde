@@ -1,11 +1,11 @@
+.. _example:
+
 Example
 =======
 
 Engarde really shines when you have a dataset that regularly receives updates.
-We'll work with a data set of customer preferences on trains, available here_.
+We'll work with a data set of customer preferences on trains_.
 This is a static dataset and isn't being updated, but you could imagine that each month the Dutch authorities upload a new month's worth of data.
-
-.. _here: http://vincentarelbundock.github.io/Rdatasets/doc/Ecdat/Train.html
 
 We can start by making some very basic assertions, that the dataset is the correct shape, and that a few columns are the correct dtypes. Assertions are made as decorators to functions that return a DataFrame.
 
@@ -167,9 +167,9 @@ We'll fix this problem by ignoring those people (why change your mind when you c
 
    In [16]: @ed.verify_all(rational)
       ....: def drop_silly_people(df):
-      ....:     r = ((df.price1 < df.price2) | (df.time1 < df.time2) |
-      ....:          (df.change1 < df.change2) | (df.comfort1 > df.comfort2))
-      ....:     return df[r]
+      ....:     r = df.query("price1 < price2 | time1 < time2 |"
+      ....:                  "change1 < change2 | comfort1 > comfort2")
+      ....:     return r
       ....:
 
    In [17]: @ed.is_shape((None, 11))
@@ -195,3 +195,10 @@ We'll fix this problem by ignoring those people (why change your mind when you c
    3        0         0
    4        0         0
    5        0         0
+
+
+All of our assertions have "passed" now, so we're happy and our analysis can
+proceed.
+
+.. _trains: http://vincentarelbundock.github.io/Rdatasets/doc/Ecdat/Train.html
+

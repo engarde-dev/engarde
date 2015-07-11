@@ -7,6 +7,7 @@ Engarde!
 ========
 
 Engarde is a package for defensive data analysis.
+Engarde supports python 2.7+ and python 3.4+.
 
 Why?
 ====
@@ -23,6 +24,7 @@ and check that they're *actually* true.
    @is_monotonic(strict=True)
    @none_missing()
    def compute(df):
+       # complex operations to determine result
        ...
        return result
 
@@ -39,22 +41,16 @@ check.
 For non-interactive use, each of the checks are wrapped into a
 decorator. You can decorate the functions that makeup your ETL pipeline
 with the checks that should hold true at that stage in the pipeline.
-Checkout :any:`example` to see engarde in action.
+Checkout :ref:`example` to see engarde in action.
 
 Contents
 ========
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    install.rst
    example.rst
+   design.rst
    api.rst
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
 
