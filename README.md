@@ -4,6 +4,7 @@ Engarde
 [![Build Status](https://travis-ci.org/TomAugspurger/engarde.svg)](https://travis-ci.org/TomAugspurger/engarde)
 
 A python package for defensive data analysis.
+Documentation is at [readthedocs](http://engarde.readthedocs.org/en/latest/).
 
 Dependencies
 ============
@@ -62,22 +63,6 @@ introduced in pandas 0.16.2 (June 2015).
 ...     .pipe(dc.within_range, (0, 100))
 ... )
 ```
-
-Overall Design
-==============
-
-Functions take a DataFrame (and optionally arguments) and return a DataFrame.
-If used as a decorator, the *result* for the decorated function is checked.
-Any failed check raises with an `AssertionError` (for now).
-
-
-TODO:
-====
-
-- better NaN ignoring (e.g. is_monotonic)
-- better subsetting / column-specific things
-- better error messages (a la pytest? How much can we use their machinery?)
-
 
 See Also
 ========
