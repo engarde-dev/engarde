@@ -28,7 +28,7 @@ We can start by making some very basic assertions, that the dataset is the corre
       ...:     comfort2=int
       ...: )
 
-   In [5]: @ed.is_shape((-1, 11))
+   In [5]: @ed.is_shape((None, 11))
       ...: @ed.has_dtypes(items=dtypes)
       ...: def unload():
       ...:         trains = pd.read_csv("data/trains.csv", index_col=0)
@@ -86,7 +86,7 @@ Like any good economist, we'll assume people are rational: their first choice is
       ...:     return r
       ...:
 
-   In [8]: @ed.is_shape((-1, 11))
+   In [8]: @ed.is_shape((None, 11))
       ...: @ed.has_dtypes(items=dtypes)
       ...: @ed.verify_all(rational)
       ...: def unload():
@@ -172,7 +172,7 @@ We'll fix this problem by ignoring those people (why change your mind when you c
       ....:     return df[r]
       ....:
 
-   In [17]: @ed.is_shape((-1, 11))
+   In [17]: @ed.is_shape((None, 11))
       ....: @ed.has_dtypes(items=dtypes)
       ....: def unload():
       ....:     trains = pd.read_csv("data/trains.csv", index_col=0)

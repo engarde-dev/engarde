@@ -91,7 +91,8 @@ def is_shape(df, shape):
 
     df : DataFrame
     shape : tuple
-      (n_rows, n_columns)
+      (n_rows, n_columns). Use None or -1 if you don't care
+      about a dimension.
 
     Returns
     =======
