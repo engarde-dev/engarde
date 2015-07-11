@@ -91,6 +91,7 @@ Contents:
    :maxdepth: 1
 
    install.rst
+   example.rst
    checks.rst
 
 
