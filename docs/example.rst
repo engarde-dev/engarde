@@ -31,8 +31,8 @@ We can start by making some very basic assertions, that the dataset is the corre
    In [5]: @ed.is_shape((None, 11))
       ...: @ed.has_dtypes(items=dtypes)
       ...: def unload():
-      ...:         trains = pd.read_csv("data/trains.csv", index_col=0)
-      ...:         return trains
+      ...:     trains = pd.read_csv("data/trains.csv", index_col=0)
+      ...:     return trains
 
    In [6]: unload()
    Out[6]:
