@@ -214,6 +214,38 @@ def has_dtypes(df, items):
             raise AssertionError("{} has the wrong dtype ({})".format(k, v))
     return df
 
+
+def one_to_many(df, unitcol, manycol):
+    """
+    Assert that a many-to-one relationship is preserved between two
+    columns. For example, a retail store will have have distinct
+    departments, each with several employees. If each employee may
+    only work in a single department, then the relationship of the
+    department to the employees is one to many.
+
+    Parameters
+    ==========
+    df : DataFrame
+    unitcol : str
+        The column that encapulates the groups in ``manycol``.
+    manycol : str
+        The column that must remain unique in the distict pairs
+        between ``manycol`` and ``unitcol``
+
+    Returns
+    =======
+    df : DataFrame
+
+    """
+    subset = df[[manycol, unitcol]].drop_duplicates()
+    for many in subset[manycol].unique():
+        if subset[subset[manycol] == many].shape[0] > 1:
+            msg = "{} in {} has multiple values for {}".format(many, manycol, unitcol)
+            raise AssertionError(msg)
+
+    return df
+
+
 __all__ = ['is_monotonic', 'is_shape', 'none_missing', 'unique_index', 'within_n_std',
            'within_range', 'within_set', 'has_dtypes',
            'verify', 'verify_all', 'verify_any']

@@ -115,6 +115,21 @@ def has_dtypes(items):
         return wrapper
     return decorate
 
+
+def one_to_many(unitcol, manycol):
+    """ Tests that each value in ``manycol`` only is associated with
+    just a single value in ``unitcol``.
+    """
+    def decorate(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            result = func(*args, **kwargs)
+            ck.one_to_many(results, unitcol, manycol)
+            return result
+        return wrapper
+    return decorate
+
+
 def verify(func, *args, **kwargs):
     """
     Assert that `func(df, *args, **kwargs)` is true.
