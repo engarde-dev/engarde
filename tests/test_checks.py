@@ -219,6 +219,24 @@ def test_has_dtypes():
     with pytest.raises(AssertionError):
         dc.has_dtypes(items={'A': bool})(_noop)(df)
 
+def test_one_to_many():
+    df = pd.DataFrame({
+        'parameter': ['Cu', 'Cu', 'Pb', 'Pb'],
+        'units': ['ug/L', 'ug/L', 'ug/L', 'ug/L'],
+        'res': [2.0, 4.0, 6.0, 8.0]
+    })
+    result = ck.one_to_many(df, 'units', 'parameter')
+    tm.assert_frame_equal(df, result)
+
+def test_one_to_many_raises():
+    df = pd.DataFrame({
+        'parameter': ['Cu', 'Cu', 'Pb', 'Pb'],
+        'units': ['ug/L', 'ug/L', 'ug/L', 'mg/L'],
+        'res': [2.0, 4.0, 6.0, 0.008]
+    })
+    with pytest.raises(AssertionError):
+        ck.one_to_many(df, 'units', 'parameter')
+
 def test_verify():
     f = lambda x, n: len(x) > n
     df = pd.DataFrame({'A': [1, 2, 3]})
