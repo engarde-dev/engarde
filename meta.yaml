@@ -1,0 +1,31 @@
+package:
+  name: engarde
+  version: "0.3.0"
+
+source:
+  fn: engarde-0.3.0.tar.gz
+  url: https://pypi.python.org/packages/source/e/engarde/engarde-0.3.0.tar.gz
+  md5: 38ea2650da5d45c446e11894472b541e
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - numpy
+    - pandas
+
+  run:
+    - python
+    - numpy
+    - pandas
+
+test:
+  # Python imports
+  imports:
+    - engarde
+
+about:
+  home: https://github.com/tomaugspurger/engarde
+  license: MIT License
+  summary: 'A python package for defensive data analysis.'
+
