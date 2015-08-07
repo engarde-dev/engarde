@@ -105,7 +105,7 @@ def is_shape(df, shape):
     except AssertionError as e:
         msg = ("Expected shape: {}\n"
                "\t\tActual shape:   {}".format(shape, df.shape))
-        e.args = msg
+        e.args = (msg,)
         raise
     return df
 
