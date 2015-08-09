@@ -1,0 +1,34 @@
+package:
+  name: engarde
+  version: {{ environ.get('GIT_DESCRIBE_TAG', '0.3.1') }}
+
+build:
+  number: {{ environ.get('GIT_DESCRIBE_NUMBER', 0) }}
+  {% if environ.get('GIT_DESCRIBE_NUMBER', '0') == '0' %}string: py{{ environ.get('PY_VER').replace('.', '') }}_0
+  {% else %}string: py{{ environ.get('PY_VER').replace('.', '') }}_{{ environ.get('GIT_BUILD_STR', 'GIT_STUB') }}{% endif %}
+
+source:
+  path: ../
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - numpy
+    - pandas
+
+  run:
+    - python
+    - numpy
+    - pandas
+
+test:
+  # Python imports
+  imports:
+    - engarde
+
+about:
+  home: https://github.com/tomaugspurger/engarde
+  license: MIT License
+  summary: 'A python package for defensive data analysis.'
+
