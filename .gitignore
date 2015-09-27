@@ -69,3 +69,9 @@ wheelhouse/
 *.zip
 *.csv
 
+# conda files
+linux-*/
+osx-64/
+win-*/
+
+
