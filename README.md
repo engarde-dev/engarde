@@ -57,7 +57,7 @@ introduced in pandas 0.16.2 (June 2015).
 
 ```python
 >>> import engarde.checks as dc
->>> (df1.reindex_like(df2))
+>>> (df1.reindex_like(df2)
 ...     .pipe(dc.unique_index)
 ...     .cumsum()
 ...     .pipe(dc.within_range, (0, 100))
