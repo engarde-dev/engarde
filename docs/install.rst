@@ -11,3 +11,7 @@ pandas and its dependencies. Once you have the dependencies sorted out
 a ``pip install engarde`` should work.
 
 .. _conda: http://conda.pydata.org
+
+If you're using conda, ``engarde`` is available in the `conda-forge` channel::
+
+    conda install -c conda-forge engarde
