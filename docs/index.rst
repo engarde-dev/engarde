@@ -31,6 +31,11 @@ and check that they're *actually* true.
 We state our assumptions as decorators, and verify that they are true
 upon the result of the function.
 
+`engarde` is similar in spirit to the R library `assertr`_.
+
+.. _assertr: https://github.com/ropenscilabs/assertr
+
+
 Usage
 =====
 
