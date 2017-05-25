@@ -60,7 +60,7 @@ docs/_build/
 target/
 
 # Editor
-
+.vscode/
 *.swp
 
 # other

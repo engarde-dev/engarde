@@ -161,7 +161,19 @@ def _verify(func, _kind, *args, **kwargs):
         return wrapper
     return decorate
 
-__all__ = ['is_monotonic', 'is_shape', 'none_missing', 'unique_index',
-           'within_range', 'within_set', 'has_dtypes', 'verify', 'verify_all',
-           'verify_any', 'within_n_std']
+
+def is_same_as(df_to_compare):
+    def decorate(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            result = func(*args, **kwargs)
+            ck.is_same_as(result, df_to_compare)
+            return result
+        return wrapper
+    return decorate
+
+
+__all__ = ['is_monotonic', 'is_same_as', 'is_shape', 'none_missing',
+           'unique_index', 'within_range', 'within_set', 'has_dtypes',
+           'verify', 'verify_all', 'verify_any', 'within_n_std']
 
