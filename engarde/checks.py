@@ -247,7 +247,7 @@ def one_to_many(df, unitcol, manycol):
     return df
 
 
-def is_same_as(df, df_to_compare):
+def is_same_as(df, df_to_compare, **kwargs):
     """
     Assert that two pandas dataframes are the equal
 
@@ -255,6 +255,8 @@ def is_same_as(df, df_to_compare):
     ==========
     df : pandas DataFrame
     df_to_compare : pandas DataFrame
+    **kwargs : dict
+        keyword arguments passed through to panda's ``assert_frame_equal``
 
     Returns
     =======
@@ -262,7 +264,7 @@ def is_same_as(df, df_to_compare):
 
     """
     try:
-        tm.assert_frame_equal(df, df_to_compare)
+        tm.assert_frame_equal(df, df_to_compare, **kwargs)
     except AssertionError as e:
         raise AssertionError("DataFrames are not equal")
     return df

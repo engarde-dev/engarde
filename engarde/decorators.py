@@ -162,12 +162,12 @@ def _verify(func, _kind, *args, **kwargs):
     return decorate
 
 
-def is_same_as(df_to_compare):
+def is_same_as(df_to_compare, **assert_kwargs):
     def decorate(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
             result = func(*args, **kwargs)
-            ck.is_same_as(result, df_to_compare)
+            ck.is_same_as(result, df_to_compare, **assert_kwargs)
             return result
         return wrapper
     return decorate
