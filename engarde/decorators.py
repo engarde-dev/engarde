@@ -11,7 +11,7 @@ def none_missing(columns=None):
         @wraps(func)
         def wrapper(*args, **kwargs):
             result = func(*args, **kwargs)
-            ck.none_missing(result, columns=None)
+            ck.none_missing(result, columns=columns)
             return result
         return wrapper
     return decorate
