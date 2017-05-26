@@ -1,9 +1,8 @@
 language: python
 python:
   - 2.7
-  - 3.3
-  - 3.4
   - 3.5
+  - 3.6
 notifications:
   email: false
 
@@ -25,4 +24,4 @@ install:
 
 # Run test
 script:
-  - nosetests tests
+  - pytest tests
