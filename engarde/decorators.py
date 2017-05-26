@@ -5,13 +5,13 @@ from functools import wraps
 
 import engarde.checks as ck
 
-def none_missing():
+def none_missing(columns=None):
     """Asserts that no missing values (NaN) are found"""
     def decorate(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
             result = func(*args, **kwargs)
-            ck.none_missing(result)
+            ck.none_missing(result, columns=None)
             return result
         return wrapper
     return decorate
