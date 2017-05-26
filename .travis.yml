@@ -1,7 +1,6 @@
 language: python
 python:
   - 2.7
-  - 3.5
   - 3.6
 notifications:
   email: false
@@ -13,6 +12,7 @@ before_install:
   - ./miniconda.sh -b -p $HOME/miniconda
   - export PATH="$HOME/miniconda/bin:$PATH"
   - conda update --yes conda
+  - conda config --add channels conda-forge
   # The next couple lines fix a crash with multiprocessing on Travis and are not specific to using Miniconda
   - sudo rm -rf /dev/shm
   - sudo ln -s /run/shm /dev/shm
