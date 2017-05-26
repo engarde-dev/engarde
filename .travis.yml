@@ -18,7 +18,7 @@ before_install:
   - sudo ln -s /run/shm /dev/shm
 # Install packages
 install:
-  - conda install --yes python=$TRAVIS_PYTHON_VERSION numpy pandas nose pip
+  - conda install --yes python=$TRAVIS_PYTHON_VERSION numpy pandas pip
   - pip install pytest
   - python setup.py install
 
