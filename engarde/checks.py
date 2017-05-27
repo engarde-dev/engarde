@@ -10,6 +10,7 @@ Each function in here should
 """
 import numpy as np
 import pandas as pd
+import pandas.util.testing as tm
 
 from engarde import generic
 from engarde.generic import verify, verify_all, verify_any
@@ -246,7 +247,30 @@ def one_to_many(df, unitcol, manycol):
     return df
 
 
-__all__ = ['is_monotonic', 'is_shape', 'none_missing', 'unique_index', 'within_n_std',
-           'within_range', 'within_set', 'has_dtypes',
-           'verify', 'verify_all', 'verify_any']
+def is_same_as(df, df_to_compare, **kwargs):
+    """
+    Assert that two pandas dataframes are the equal
+
+    Parameters
+    ==========
+    df : pandas DataFrame
+    df_to_compare : pandas DataFrame
+    **kwargs : dict
+        keyword arguments passed through to panda's ``assert_frame_equal``
+
+    Returns
+    =======
+    df : DataFrame
+
+    """
+    try:
+        tm.assert_frame_equal(df, df_to_compare, **kwargs)
+    except AssertionError as e:
+        raise AssertionError("DataFrames are not equal")
+    return df
+
+
+__all__ = ['is_monotonic', 'is_same_as', 'is_shape', 'none_missing',
+           'unique_index', 'within_n_std', 'within_range', 'within_set',
+           'has_dtypes', 'verify', 'verify_all', 'verify_any']
 

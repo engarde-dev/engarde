@@ -271,4 +271,38 @@ def test_verify_any():
         ck.verify_any(df, f, n=4)
         dc.verify_any(f, n=4)(df)
 
+def test_is_same_as():
+    df = pd.DataFrame({'A': [1, 2, 3], 'B': [1, 2, 3]})
+    df_equal = pd.DataFrame({'A': [1, 2, 3], 'B': [1, 2, 3]})
+    df_not_equal = pd.DataFrame({'A': [1, 2, 3], 'B': [1, 2, 1]})
 
+    result = ck.is_same_as(df, df_equal)
+    tm.assert_frame_equal(df, result)
+
+    result = dc.is_same_as(df_equal)(_noop)(df)
+    tm.assert_frame_equal(df, result)
+
+    with pytest.raises(AssertionError):
+        ck.is_same_as(df, df_not_equal)
+        dc.is_same_as(df_not_equal)(_noop)(df)
+
+def test_is_same_as_with_kwargs():
+    df = pd.DataFrame({'A': [1, 2, 3], 'B': [1, 2, 3]})
+    df_equal = pd.DataFrame({'A': [1, 2, 3], 'B': [1, 2, 3]})
+    df_equal_float = pd.DataFrame({'A': [1.0, 2, 3], 'B': [1, 2, 3.0]})
+
+    result = ck.is_same_as(df, df_equal, check_dtype=True)
+    tm.assert_frame_equal(df, result)
+
+    result = dc.is_same_as(df_equal, check_dtype=True)(_noop)(df)
+    tm.assert_frame_equal(df, result)
+
+    with pytest.raises(AssertionError):
+        ck.is_same_as(df, df_equal_float, check_dtype=True)
+        dc.is_same_as(df_equal_float, check_dtype=True)(_noop)(df)
+
+    result = ck.is_same_as(df, df_equal_float, check_dtype=False)
+    tm.assert_frame_equal(df, result)
+
+    result = dc.is_same_as(df_equal_float, check_dtype=False)(_noop)(df)
+    tm.assert_frame_equal(df, result)
