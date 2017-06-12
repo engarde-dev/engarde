@@ -124,7 +124,7 @@ def one_to_many(unitcol, manycol):
         @wraps(func)
         def wrapper(*args, **kwargs):
             result = func(*args, **kwargs)
-            ck.one_to_many(results, unitcol, manycol)
+            ck.one_to_many(result, unitcol, manycol)
             return result
         return wrapper
     return decorate
