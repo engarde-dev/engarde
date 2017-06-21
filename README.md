@@ -40,7 +40,7 @@ the invariants that should be true at that step in the process.
 ```python
 from engarde.decorators import none_missing, unique_index, is_shape
 
-@none_missing
+@none_missing()
 def f(df1, df2):
     return df1.add(df2)
 
