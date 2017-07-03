@@ -155,6 +155,20 @@ def test_is_shape():
     with pytest.raises(AssertionError):
         dc.is_shape((9, 2))(_add_n)(df)
 
+
+def test_unique():
+    df = pd.DataFrame([[1, 2, 3], ['a', 'b', 'c']])
+    tm.assert_frame_equal(df, ck.unique(df))
+    result = dc.unique()(_noop)(df)
+    tm.assert_frame_equal(result, df)
+
+    df = pd.DataFrame([[1, 2, 3], [1, 'b', 'c']])
+    with pytest.raises(AssertionError):
+        ck.unique(df)
+    with pytest.raises(AssertionError):
+        dc.unique()(_noop)(df)
+
+
 def test_unique_index():
     df = pd.DataFrame([1, 2, 3], index=['a', 'b', 'c'])
     tm.assert_frame_equal(df, ck.unique_index(df))

@@ -111,6 +111,30 @@ def is_shape(df, shape):
         raise
     return df
 
+
+def unique(df, columns=None):
+    """
+    Asserts that columns in the DataFrame only have unique values.
+
+    Parameters
+    ----------
+    df : DataFrame
+    columns : list
+      list of columns to restrict the check to. If None, check all columns.
+
+    Returns
+    -------
+    df : DataFrame
+      same as the original
+    """
+    if columns is None:
+        columns = df.columns
+    for col in columns:
+        if not df[col].is_unique:
+            raise AssertionError("Column {!r} contains non-unique values".format(col))
+    return df
+
+
 def unique_index(df):
     """
     Assert that the index is unique
