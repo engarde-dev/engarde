@@ -206,15 +206,15 @@ def within_n_std(df, n=3):
     ==========
     df : DataFame
     n : int
-      number of standard devations from the mean
+      number of standard deviations from the mean
 
     Returns
     =======
-    df : DatFrame
+    df : DataFrame
     """
     means = df.mean()
     stds = df.std()
-    inliers = (np.abs(df - means) < n * stds)
+    inliers = (np.abs(df[means.index] - means) < n * stds)
     if not np.all(inliers):
         msg = generic.bad_locations(~inliers)
         raise AssertionError(msg)

@@ -209,7 +209,7 @@ def test_within_range():
         dc.within_range(items)(_noop)(df)
 
 def test_within_n_std():
-    df = pd.DataFrame({'A': np.arange(10)})
+    df = pd.DataFrame({'A': np.arange(10), 'B': list('abcde')*2})
     tm.assert_frame_equal(df, ck.within_n_std(df))
     tm.assert_frame_equal(df, dc.within_n_std()(_noop)(df))
 
