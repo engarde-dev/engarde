@@ -158,7 +158,7 @@ Like any good economist, we'll assume people are rational: their first choice is
 
 So our check failed, apparently people aren't rational...
 Engarde has printed the name of the failed assertion and the rows that are False.
-We're simply resusing pandas printing machinery, so set ``pd.options.display.max_rows`` to display
+We're simply reusing pandas printing machinery, so set ``pd.options.display.max_rows`` to display
 more or fewer rows.
 
 We'll fix this problem by ignoring those people (why change your mind when you can change the data?).
