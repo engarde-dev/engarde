@@ -23,5 +23,5 @@ decorators
 
 This file provides a nice API for each of the checks, designed to fit
 seamlessly into an ETL pipeline. Each of the functions defined here
-can be applied to a functino that returns a DataFrame.
+can be applied to a function that returns a DataFrame.
 
