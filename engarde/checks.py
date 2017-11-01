@@ -297,5 +297,6 @@ def is_same_as(df, df_to_compare, **kwargs):
 
 __all__ = ['is_monotonic', 'is_same_as', 'is_shape', 'none_missing',
            'unique_index', 'within_n_std', 'within_range', 'within_set',
-           'has_dtypes', 'verify', 'verify_all', 'verify_any']
+           'has_dtypes', 'verify', 'verify_all', 'verify_any',
+           'one_to_many','is_same_as',]
 
