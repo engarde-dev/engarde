@@ -237,7 +237,7 @@ def has_dtypes(df, items):
     dtypes = df.dtypes
     for k, v in items.items():
         if not dtypes[k] == v:
-            raise AssertionError("{} has the wrong dtype ({})".format(k, v))
+            raise AssertionError("{} has the wrong dtype. Should be ({}), is ({})".format(k, v,dtypes[k]))
     return df
 
 
@@ -299,4 +299,3 @@ __all__ = ['is_monotonic', 'is_same_as', 'is_shape', 'none_missing',
            'unique_index', 'within_n_std', 'within_range', 'within_set',
            'has_dtypes', 'verify', 'verify_all', 'verify_any',
            'one_to_many','is_same_as',]
-
