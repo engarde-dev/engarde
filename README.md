@@ -1,3 +1,6 @@
+__Engarde is no longer under active developement. Take a look at the [bulwark](https://github.com/zaxr/bulwark) tool for similar functionality.__
+
+
 Engarde
 =======
 
